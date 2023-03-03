@@ -3,12 +3,21 @@ import axios from "../../axios"
 
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const { data } = await axios.get('/posts')
-  return data
+  try {
+    const { data } = await axios.get('/posts')
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+
 })
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
-  const { data } = await axios.get('/tags')
-  return data
+  try {
+    const { data } = await axios.get('/tags')
+    return data
+  } catch (error) {
+    console.log(error);
+  }
 })
 const initialState = {
   posts: {
