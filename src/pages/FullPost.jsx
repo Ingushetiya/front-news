@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Post } from '../components/Post';
 import { Index } from '../components/AddComment';
@@ -7,9 +7,10 @@ import { useParams } from 'react-router-dom';
 import axios from '../axios';
 export const FullPost = () => {
   const [data, setData] = React.useState(null);
-  const [isLoading, setIsLoadind] = React.useState(true);
+  const [isLoading, setIsLoadind] = useState(true);
+
   const { id } = useParams();
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(`/posts/${id}`)
       .then((res) => {
@@ -20,10 +21,10 @@ export const FullPost = () => {
         console.log(err);
         alert('Ошибка при получении статьи');
       });
-  }, []);
+  }, [id]);
 
   if (isLoading) {
-    return <Post isLoading={isLoading} isFullPost />;
+    return <Post isLoading={isLoading} />;
   }
   return (
     <>
@@ -35,8 +36,7 @@ export const FullPost = () => {
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
         commentsCount={3}
-        tags={data.tags}
-        isFullPost>
+        tags={data.tags}>
         <p>{data.text}</p>
       </Post>
       <CommentsBlock
@@ -55,8 +55,7 @@ export const FullPost = () => {
             },
             text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
           },
-        ]}
-        isLoading={false}>
+        ]}>
         <Index />
       </CommentsBlock>
     </>
