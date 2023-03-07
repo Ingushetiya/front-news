@@ -13,6 +13,7 @@ import { Navigate } from 'react-router-dom';
 
 export const Registration = () => {
   const isAuth = useSelector(selectIsAuth);
+  console.log(isAuth);
   const dispatch = useDispatch();
   const {
     register,
@@ -60,7 +61,7 @@ export const Registration = () => {
           type={'email'}
           error={Boolean(errors.email?.message)}
           helperText={errors.email?.message}
-          {...register('email', { required: 'Укажите mailpassword' })}
+          {...register('email', { required: 'Укажите mail' })}
           className={styles.field}
           label="E-Mail"
           fullWidth

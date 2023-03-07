@@ -25,15 +25,17 @@ export const fetchRegister = createAsyncThunk("auth/fetchRegister", async (param
   }
 })
 export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async (params, thunkAPI) => {
-  try {
-    const { data } = await axios.get("/auth/me")
-    if (data.message) {
-      return thunkAPI.rejectWithValue(data.message)
-    }
-    return data
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message)
-  }
+  const { data } = await axios.get("/auth/me")
+  return data
+  // try {
+  //   const { data } = await axios.get("/auth/me")
+  //   if (data.message) {
+  //     return thunkAPI.rejectWithValue(data.message)
+  //   }
+  //   return data
+  // } catch (error) {
+  //   return thunkAPI.rejectWithValue(error.message)
+  // }
 })
 const initialState = {
   data: null,
@@ -64,30 +66,30 @@ const authSlice = createSlice({
     },
     [fetchAuthMe.pending]: (state) => {
       state.status = "loading"
-      state.items = []
+      state.data = []
     },
     [fetchAuthMe.fulfilled]: (state, action) => {
+      state.data = action.payload
       state.status = "loaded"
-      state.items = action.payload
     },
     [fetchAuthMe.rejected]: (state) => {
-      state.items = []
+      state.data = null
       state.status = "error"
     },
     [fetchRegister.pending]: (state) => {
       state.status = "loading"
-      state.items = []
+      state.data = []
     },
     [fetchRegister.fulfilled]: (state, action) => {
       state.status = "loaded"
-      state.items = action.payload
+      state.data = action.payload
     },
     [fetchRegister.rejected]: (state) => {
-      state.items = []
+      state.data = []
       state.status = "error"
     },
   }
 })
-export const selectIsAuth = state => Boolean(state.auth.data)
+export const selectIsAuth = state => state.auth.data
 export const authReducer = authSlice.reducer
 export const { logout } = authSlice.actions
