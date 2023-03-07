@@ -4,9 +4,12 @@ import { Post } from '../components/Post';
 import { Index } from '../components/AddComment';
 import { CommentsBlock } from '../components/CommentsBlock';
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import axios from '../axios';
+
 export const FullPost = () => {
   const [data, setData] = React.useState(null);
+  console.log(data);
   const [isLoading, setIsLoadind] = useState(true);
 
   const { id } = useParams();
@@ -31,13 +34,13 @@ export const FullPost = () => {
       <Post
         id={data._id}
         title={data.title}
-        imageUrl={data.imageUrl}
+        imageUrl={data.imageUrl ? `http://localhost:4000${data.imageUrl}` : ''}
         user={data.user}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
         commentsCount={3}
         tags={data.tags}>
-        <p>{data.text}</p>
+        <ReactMarkdown children={data.text} />
       </Post>
       <CommentsBlock
         items={[
