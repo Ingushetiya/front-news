@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { Header } from "./components";
 import { Home, FullPost, Registration, AddPost, Login } from "./pages";
+import Popular from "./pages/PopularPost";
 import { fetchAuthMe } from "./redux/slices/auth";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="register" element={<Registration />} />
+          <Route path="/popular" element={<Popular />} />
         </Routes>
       </Container>
     </>

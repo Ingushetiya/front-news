@@ -9,6 +9,7 @@ import { CommentsBlock } from '../components/CommentsBlock';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, fetchTags } from '../redux/slices/posts';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ export const Home = () => {
     <>
       <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
         <Tab label="Новые" />
-        <Tab label="Популярные" />
+        <Link to={'/popular'}>
+          <Tab label="Популярные" />
+        </Link>
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
